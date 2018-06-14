@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Add an item to inventory</h1>
+<form action="/add-item">
+    {% csrf-field %}
+    <div class="form-group">
+        <label for="item-name">Name</label>
+        <input type="text" class="form-control" id="item-name" name="name">
+    </div>
+    <div class="form-group">
+        <label for="item-serial-number">Serial Number</label>
+        <input type="text" class="form-control" id="item-serial-number" name="serial-number">
+    </div>
+    <div class="form-group">
+        <label for="item-value">Value</label>
+        <input type="text" class="form-control" id="item-value" name="value">
+    </div>
+    <button class="btn btn-primary" type="submit">Add</button>
+</form>
+{% endblock %}
