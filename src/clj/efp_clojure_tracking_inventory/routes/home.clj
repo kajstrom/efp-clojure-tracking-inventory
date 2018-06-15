@@ -6,8 +6,10 @@
             [clojure.java.io :as io]))
 
 (defn home-page [{:keys [flash]}]
-  (layout/render
-    "home.html" {:flash flash}))
+  (let [items (db/get-items)]
+    (println items)
+    (layout/render
+     "home.html" (hash-map :items items :flash flash))))
 
 (defn item-page []
   (layout/render "form.html"))

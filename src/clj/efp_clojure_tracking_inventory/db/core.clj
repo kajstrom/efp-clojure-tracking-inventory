@@ -2,6 +2,7 @@
     (:require [monger.core :as mg]
               [monger.collection :as mc]
               [monger.operators :refer :all]
+              [monger.conversion :refer [from-db-object]]
               [mount.core :refer [defstate]]
               [efp-clojure-tracking-inventory.config :refer [env]]))
 
@@ -14,8 +15,16 @@
 
 (def coll "inventory")
 
+(defn format-item [item]
+  (-> item
+      (assoc :id (.toString (:_id item)))
+      (dissoc :_id)))
+
 (defn create-item [item]
   (mc/insert db coll item))
+
+(defn get-items []
+  (map format-item (mc/find-maps db coll {})))
 
 ;
 ;(defn create-user [user]

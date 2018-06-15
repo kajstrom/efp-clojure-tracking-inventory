@@ -4,9 +4,8 @@ generated using Luminus version "2.9.12.62"
 
 ## Todo
 
-- Saving a new item
-- Listing items in the front page
 - Editing items
+- Deleting items
 - Item CSV report
 
 ## Prerequisites
