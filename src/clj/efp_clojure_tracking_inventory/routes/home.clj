@@ -1,21 +1,28 @@
 (ns efp-clojure-tracking-inventory.routes.home
-  (:require [efp-clojure-tracking-inventory.layout :as layout]
-            [compojure.core :refer [defroutes GET]]
+  (:require [efp-clojure-tracking-inventory.db.core :as db]
+            [efp-clojure-tracking-inventory.layout :as layout]
+            [compojure.core :refer [defroutes GET POST]]
             [ring.util.http-response :as response]
             [clojure.java.io :as io]))
 
-(defn home-page []
+(defn home-page [{:keys [flash]}]
   (layout/render
-    "home.html" {:docs (-> "docs/docs.md" io/resource slurp)}))
+    "home.html" {:flash flash}))
 
 (defn item-page []
   (layout/render "form.html"))
+
+(defn add-item [{:keys [params]}]
+  (db/create-item (dissoc params :__anti-forgery-token))
+  (-> (response/found "/")
+      (assoc :flash "Item added!")))
 
 (defn about-page []
   (layout/render "about.html"))
 
 (defroutes home-routes
-  (GET "/" [] (home-page))
+  (GET "/" request (home-page request))
   (GET "/item" [] (item-page))
+  (POST "/add-item" request (add-item request))
   (GET "/about" [] (about-page)))
 
