@@ -4,7 +4,8 @@
               [monger.operators :refer :all]
               [monger.conversion :refer [from-db-object]]
               [mount.core :refer [defstate]]
-              [efp-clojure-tracking-inventory.config :refer [env]]))
+              [efp-clojure-tracking-inventory.config :refer [env]])
+  (:import org.bson.types.ObjectId))
 
 (defstate db*
   :start (-> env :database-url mg/connect-via-uri)
@@ -23,8 +24,14 @@
 (defn create-item [item]
   (mc/insert db coll item))
 
+(defn update-item [id item]
+  (mc/update db coll {:_id (ObjectId. id)} {$set item}))
+
 (defn get-items []
   (map format-item (mc/find-maps db coll {})))
+
+(defn get-item [id]
+  (format-item (mc/find-one-as-map db coll {:_id (ObjectId. id)})))
 
 ;
 ;(defn create-user [user]
