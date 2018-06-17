@@ -27,8 +27,10 @@
   (-> (response/found "/")
       (assoc :flash "Item updated")))
 
-(defn about-page []
-  (layout/render "about.html"))
+(defn delete-item [id]
+  (db/delete-item id)
+  (-> (response/found "/")
+      (assoc :flash "Item deleted")))
 
 (defroutes home-routes
   (GET "/" request (home-page request))
@@ -36,5 +38,5 @@
   (GET "/item/:id" [id request] (item-page id))
   (POST "/add-item" request (add-item request))
   (POST "/edit-item/:id" [id :as request] (edit-item id request))
-  (GET "/about" [] (about-page)))
+  (GET "/delete-item/:id" [id] (delete-item id)))
 

@@ -4,7 +4,6 @@ generated using Luminus version "2.9.12.62"
 
 ## Todo
 
-- Deleting items
 - Item CSV report
 
 ## Prerequisites

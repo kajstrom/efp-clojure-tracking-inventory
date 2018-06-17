@@ -22,7 +22,10 @@
     <td>{{item.name}}</td>
     <td>{{item.serial-number}}</td>
     <td>{{item.value}}</td>
-    <td><a href="/item/{{item.id}}">Edit</a></td>
+    <td>
+        <a href="/item/{{item.id}}">Edit</a>
+        <a href="/delete-item/{{item.id}}">Delete</a>
+    </td>
   </tr>
   {% endfor %}
   </tbody>

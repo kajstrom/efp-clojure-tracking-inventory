@@ -27,6 +27,10 @@
 (defn update-item [id item]
   (mc/update db coll {:_id (ObjectId. id)} {$set item}))
 
+(defn delete-item [id]
+  (->> (ObjectId. id)
+       (mc/remove-by-id db coll)))
+
 (defn get-items []
   (map format-item (mc/find-maps db coll {})))
 
