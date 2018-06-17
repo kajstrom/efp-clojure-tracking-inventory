@@ -2,10 +2,6 @@
 
 generated using Luminus version "2.9.12.62"
 
-## Todo
-
-- Item CSV report
-
 ## Prerequisites
 
 You will need [Leiningen][1] 2.0 or above installed.
